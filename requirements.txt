@@ -2,3 +2,4 @@ Flask
 Flask-Dropzone
 Flask-WTF
 python-resize-image
+gunicorn
