@@ -1,6 +1,6 @@
 import os
 import re
-from flask import Flask,flash,request,redirect,url_for,send_from_directory
+from flask import Flask,flash,request,redirect,url_for,send_from_directory,render_template
 from os import walk
 from werkzeug.utils import secure_filename
 from PIL import Image
@@ -54,15 +54,7 @@ def upload_file():
             if check_img(filen):
                 resize_file(filen,filen,[2048,1152])
                 return send_from_directory(app.config['UPLOAD_FOLDER'],filename,as_attachment=True)
-    return '''
-    <!doctype html>
-    <title>Upload new File</title>
-    <h1>Upload new File</h1>
-    <form method=post enctype=multipart/form-data>
-      <input type=file name=file>
-      <input type=submit value=Upload>
-    </form>
-    '''
+    return render_template('home.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
