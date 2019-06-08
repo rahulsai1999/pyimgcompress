@@ -9,7 +9,7 @@ from flask_dropzone import Dropzone
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 def resize_file(in_path,out_path,size):
-    with open(in_path,'r') as f:
+    with open(in_path,'r+b') as f:
         with Image.open(f) as image:
             cover=resizeimage.resize_contain(image,size)
             cover.save(out_path,image.format)
@@ -54,9 +54,13 @@ def download():
         for file in files:
             filen=os.path.join(root,file)
             if check_img(filen):
-                resize_file(filen,filen,[2048,1152])
+                with open(filen,'r+b') as f:
+                    with Image.open(f) as image:
+                        cover=resizeimage.resize_contain(image,[2048,1152])
+                        cover.save(filen,image.format)
                 zipf.write(filen)        
     zipf.close()
+    
     return send_file('Download.zip',
             mimetype = 'zip',
             attachment_filename= 'Download.zip',
@@ -64,4 +68,4 @@ def download():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0',port=5000)

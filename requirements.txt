@@ -1,5 +1,6 @@
-Flask
-Flask-Dropzone
-Flask-WTF
-python-resize-image
+Flask==1.0.2
+Flask-Dropzone==1.5.3
+Flask-WTF==0.14.2
+Pillow==5.4.1
+python-resize-image==1.1.18
 gunicorn
