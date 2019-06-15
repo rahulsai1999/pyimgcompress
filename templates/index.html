@@ -1,19 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Flask-Dropzone Demo</title>
-    {{ dropzone.load_css() }}
-    {{ dropzone.style('border: 2px dashed #0087F7; margin: 10px 0 10px; min-height: 400px;') }}
-</head>
-<body>
-{{ dropzone.create('/') }}
-<button id="upload">Upload</button>
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <title>Loseless JPEG Compression</title>
+    {{
+      dropzone.load_css()
+    }}
+    {{
+      dropzone.style(
+        "border: 2px solid #0087F7; margin: 3%; min-height: 500px; border-radius:10px"
+      )
+    }}
+  </head>
+  <body>
+    <div class="container" style="text-align: center;margin-top: 4%">
+      <h2>JPEG Compression</h2>
+      {{ dropzone.create("/") }}
+      <button
+        id="upload"
+        type="button"
+        class="btn btn-success btn-lg"
+        style="width: 300px;margin-top: 5%"
+      >
+        Upload
+      </button>
 
-{{ dropzone.load_js() }}
-{{ dropzone.config() }}
+      {{ dropzone.load_js() }}
+      {{ dropzone.config() }}
 
-<h3>Always open in a new Incognito Window for best results</h3>
-<h4>For downloading : pyimgcompress.herokuapp.com/d?width=(your width)&height=(your height)</h4>
-</body>
+      <div style="text-align: center;margin-top: 5%">
+        <h3>Always open in a new Incognito Window (Broswer Cache issue)</h3>
+        <h5>
+          For downloading : pyimgcompress.herokuapp.com/d?width=(your
+          width)&height=(your height)
+        </h5>
+      </div>
+    </div>
+  </body>
 </html>

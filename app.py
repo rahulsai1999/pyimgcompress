@@ -28,7 +28,7 @@ app.config.update(
     UPLOADED_PATH=os.path.join(basedir, 'uploads'),
     DROPZONE_ALLOWED_FILE_TYPE='image',
     DROPZONE_MAX_FILE_SIZE=10,
-    DROPZONE_MAX_FILES=40,
+    DROPZONE_MAX_FILES=10,
     DROPZONE_UPLOAD_ON_CLICK=True
 )
 
@@ -40,8 +40,8 @@ def upload():
     for root,dirs,files in os.walk(app.config['UPLOADED_PATH']):
         for file in files:
             os.remove(os.path.join(root,file))
-    if os.path.exists('Download.zip'):
-        os.remove('Download.zip')
+    if os.path.exists(os.path.join(basedir,'Download.zip')):
+        os.remove(os.path.join(basedir,'Download.zip'))
     
     if request.method == 'POST':
         for key, f in request.files.items():
