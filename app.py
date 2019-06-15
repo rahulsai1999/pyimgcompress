@@ -27,8 +27,8 @@ app = Flask(__name__)
 app.config.update(
     UPLOADED_PATH=os.path.join(basedir, 'uploads'),
     DROPZONE_ALLOWED_FILE_TYPE='image',
-    DROPZONE_MAX_FILE_SIZE=3,
-    DROPZONE_MAX_FILES=20,
+    DROPZONE_MAX_FILE_SIZE=10,
+    DROPZONE_MAX_FILES=40,
     DROPZONE_UPLOAD_ON_CLICK=True
 )
 
@@ -40,6 +40,8 @@ def upload():
     for root,dirs,files in os.walk(app.config['UPLOADED_PATH']):
         for file in files:
             os.remove(os.path.join(root,file))
+    if os.path.exists('Download.zip'):
+        os.remove('Download.zip')
     
     if request.method == 'POST':
         for key, f in request.files.items():
@@ -49,6 +51,8 @@ def upload():
 
 @app.route('/d')
 def download():
+    height=request.args.get('height',default=1152,type=int)
+    width=request.args.get('width',default=2048,type=int)
     zipf=zipfile.ZipFile('Download.zip','w',zipfile.ZIP_DEFLATED)
     for root,dirs,files in os.walk(app.config['UPLOADED_PATH']):
         for file in files:
@@ -56,7 +60,7 @@ def download():
             if check_img(filen):
                 with open(filen,'r+b') as f:
                     with Image.open(f) as image:
-                        cover=resizeimage.resize_contain(image,[2048,1152])
+                        cover=resizeimage.resize_contain(image,[width,height])
                         cover.save(filen,image.format)
                 zipf.write(filen)        
     zipf.close()
