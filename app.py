@@ -27,8 +27,8 @@ app = Flask(__name__)
 app.config.update(
     UPLOADED_PATH=os.path.join(basedir, 'uploads'),
     DROPZONE_ALLOWED_FILE_TYPE='image',
-    DROPZONE_MAX_FILE_SIZE=10,
-    DROPZONE_MAX_FILES=10,
+    DROPZONE_MAX_FILE_SIZE=15,
+    DROPZONE_MAX_FILES=15,
     DROPZONE_UPLOAD_ON_CLICK=True
 )
 
